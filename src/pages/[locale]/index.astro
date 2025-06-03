@@ -11,7 +11,7 @@ import { getEntry, getCollection } from "astro:content";
 import Header from "@/components/Header.astro";
 
 export const getStaticPaths = (() => {
-  return ["es", "en"].map((locale) => ({
+  return ["es", "en"].map(locale => ({
     params: { locale },
     props: { locale },
   }));
@@ -19,7 +19,7 @@ export const getStaticPaths = (() => {
 
 const lang = (Astro.currentLocale || "es") as "es" | "en";
 
-const profile = await getEntry("profile", "profile")?.then((entry) => entry?.data)!;
+const profile = await getEntry("profile", "profile")?.then(entry => entry?.data)!;
 const skills = (await getCollection("skills")).sort((a, b) => a.data.order - b.data.order);
 const education = await getCollection("education");
 const certifications = (await getCollection("certifications")).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -50,23 +50,30 @@ const i18n = {
 
       <main>
         <Section name={i18n["section.experiences"]} class="space-y-10">
-          {experiencies.map((item) => <Experience {item} />)}
+          {experiencies.map(item => <Experience {item} />)}
         </Section>
       </main>
 
       <aside class="space-y-10">
         <Section name={i18n["section.skills"]} class="space-y-2">
-          {skills.map((item) => <Skill {item} />)}
+          {skills.map(item => <Skill {item} />)}
         </Section>
 
         <Section name={i18n["section.certifications"]} class="space-y-2">
-          {certifications.map((item) => <Certification {item} />)}
+          {certifications.map(item => <Certification {item} />)}
         </Section>
 
         <Section name={i18n["section.education"]}>
-          {education.map((item) => <Education {item} />)}
+          {education.map(item => <Education {item} />)}
         </Section>
       </aside>
     </div>
+    <section class="sr-only">
+      <h4>Target Job Titles (ATS Optimization)</h4>
+      <p>
+        Frontend Engineer, Angular Developer, Software Engineer, Fullstack Developer, .NET Developer, Frontend Tech Lead, UI Engineer, Web
+        Developer
+      </p>
+    </section>
   </Page>
 </Layout>

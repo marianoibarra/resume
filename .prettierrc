@@ -14,6 +14,7 @@
 
   "astroAllowShorthand": true,
   "astroSkipFrontmatter": false,
+  "arrowParens": "avoid",
 
   "tailwindConfig": "./src/styles/globals.css",
   "overrides": [
