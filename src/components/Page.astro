@@ -19,7 +19,7 @@ const classes = {
 <style define:vars={{ size }} is:global>
   @media print {
     @page {
-      size: 10cm 10cm;
+      size: var(--size) portrait;
       margin: 0;
     }
   }
