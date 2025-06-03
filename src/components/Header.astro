@@ -12,12 +12,14 @@ const { profile, ...attrs } = Astro.props;
   <div>
     <h1 class="text-4xl leading-normal font-semibold uppercase text-accent">{profile?.name}</h1>
     <p class="leading-snug text-pretty w-4/5 text-neutral-600 text-[1.1rem]">
+      <span class="sr-only">About me - Summary</span>
       {profile?.summary[lang]}
     </p>
   </div>
   <div class="text-neutral-600 text-sm *:leading-normal *:block">
+    <span class="sr-only">Contact</span>
     {
-      profile?.contact.map((href) => (
+      profile?.contact.map(href => (
         <a {href} target="_blank">
           {href.replace("https://", "").split(":").at(-1)}
         </a>

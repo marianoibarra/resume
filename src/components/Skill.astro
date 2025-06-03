@@ -11,9 +11,9 @@ const lang = (Astro.currentLocale || "es") as "es" | "en";
 const title = item.data.title[lang];
 ---
 
-<article>
-  <h4 class="article-heading">{title}</h4>
-  <div class="[&>*>li]:inline [&>*>li]:not-last:after:content-[','] text-neutral-600 text-pretty text-sm leading-snug mt-0.5">
-    <Content />
-  </div>
+<article
+  class="[&>ul]:text-neutral-600 [&>ul]:text-sm [&>ul]:leading-snug [&>ul]:text-pretty
+    [&>ul>li]:inline [&>ul>li]:not-last:after:content-[',']">
+  <h4 class="article-heading mb-0.5">{title}</h4>
+  <Content />
 </article>
