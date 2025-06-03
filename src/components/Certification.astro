@@ -1,0 +1,24 @@
+---
+import { parseDate } from "@/utils/date-parser";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  item: CollectionEntry<"certifications">;
+}
+
+const {
+  item: { data },
+} = Astro.props;
+
+const lang = Astro.currentLocale || "es";
+---
+
+<article>
+  <a href={data.url} target="_blank">
+    <h4 class="article-heading">{data.title}</h4>
+    <p class="text-neutral-600 text-sm">
+      <span>{data.issuer}</span>,
+      <time class="whitespace-nowrap">{parseDate(data.date, lang)}</time>
+    </p>
+  </a>
+</article>

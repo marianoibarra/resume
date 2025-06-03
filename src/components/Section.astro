@@ -1,0 +1,14 @@
+---
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  name: string;
+}
+
+const { name, ...attrs } = Astro.props;
+---
+
+<section>
+  <h3 class="section-heading">{name}</h3>
+  <div {...attrs}>
+    <slot />
+  </div>
+</section>

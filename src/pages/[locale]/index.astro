@@ -1,0 +1,72 @@
+---
+import type { GetStaticPaths } from "astro";
+import Certification from "@/components/Certification.astro";
+import Education from "@/components/Education.astro";
+import Experience from "@/components/Experience.astro";
+import Page from "@/components/Page.astro";
+import Section from "@/components/Section.astro";
+import Skill from "@/components/Skill.astro";
+import Layout from "@/layout/Layout.astro";
+import { getEntry, getCollection } from "astro:content";
+import Header from "@/components/Header.astro";
+
+export const getStaticPaths = (() => {
+  return ["es", "en"].map((locale) => ({
+    params: { locale },
+    props: { locale },
+  }));
+}) satisfies GetStaticPaths;
+
+const lang = (Astro.currentLocale || "es") as "es" | "en";
+
+const profile = await getEntry("profile", "profile")?.then((entry) => entry?.data)!;
+const skills = (await getCollection("skills")).sort((a, b) => a.data.order - b.data.order);
+const education = await getCollection("education");
+const certifications = (await getCollection("certifications")).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const experiencies = (await getCollection("experiencies", (item: { id: string }) => item.id.split("/")[0] === lang)).sort(
+  (a, b) => (b.data.endDate?.getTime() || Date.now()) - (a.data.endDate?.getTime() || Date.now()),
+);
+
+const i18n = {
+  es: {
+    "section.experiences": "Experiencia profesional",
+    "section.skills": "Skills",
+    "section.education": "Educación",
+    "section.certifications": "Certificaciones",
+  },
+  en: {
+    "section.experiences": "Professional experience",
+    "section.skills": "Skills",
+    "section.education": "Education",
+    "section.certifications": "Certifications",
+  },
+}[lang];
+---
+
+<Layout>
+  <Page size="A4">
+    <div class="grid grid-cols-[1fr_220px] gap-12">
+      <Header {profile} class="contents" />
+
+      <main>
+        <Section name={i18n["section.experiences"]} class="space-y-10">
+          {experiencies.map((item) => <Experience {item} />)}
+        </Section>
+      </main>
+
+      <aside class="space-y-10">
+        <Section name={i18n["section.skills"]} class="space-y-2">
+          {skills.map((item) => <Skill {item} />)}
+        </Section>
+
+        <Section name={i18n["section.certifications"]} class="space-y-2">
+          {certifications.map((item) => <Certification {item} />)}
+        </Section>
+
+        <Section name={i18n["section.education"]}>
+          {education.map((item) => <Education {item} />)}
+        </Section>
+      </aside>
+    </div>
+  </Page>
+</Layout>

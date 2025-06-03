@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  item: CollectionEntry<"education">;
+}
+
+const {
+  item: { data },
+} = Astro.props;
+
+const lang = (Astro.currentLocale || "es") as "es" | "en";
+const title = data.title[lang];
+---
+
+<article>
+  <h4 class="article-heading">
+    <span>{title}</span>
+  </h4>
+  <p class="text-neutral-600 text-sm">
+    <a href={data.url} target="_blank">{data.institution}</a>,
+    <time class="whitespace-nowrap">{data.startYear} — {data.endYear}</time>
+  </p>
+</article>

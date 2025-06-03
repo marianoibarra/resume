@@ -1,0 +1,18 @@
+---
+import { Font } from "astro:assets";
+import "@/styles/global.css";
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Mariano Ibarra</title>
+
+    <Font cssVariable="--font-roboto" preload />
+  </head>
+  <body class="space-y-8 print:space-y-0">
+    <slot />
+  </body>
+</html>

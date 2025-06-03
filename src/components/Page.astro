@@ -1,0 +1,26 @@
+---
+interface Props {
+  size: "A4" | "letter" | "legal";
+}
+
+const { size } = Astro.props;
+
+const classes = {
+  A4: "w-[210mm] h-[297mm]",
+  letter: "w-[216mm] h-[279mm]",
+  legal: "w-[216mm] h-[356mm]",
+};
+---
+
+<div class:list={[classes[size], "bg-white relative p-14 border border-gray-300 shadow-2xl print:shadow-none print:border-0"]}>
+  <slot />
+</div>
+
+<style define:vars={{ size }} is:global>
+  @media print {
+    @page {
+      size: 10cm 10cm;
+      margin: 0;
+    }
+  }
+</style>

@@ -1,0 +1,30 @@
+---
+import { parseDate } from "@/utils/date-parser";
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import Prose from "./Prose.astro";
+
+interface Props {
+  item: CollectionEntry<"experiencies">;
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+
+const lang = Astro.currentLocale || "es";
+---
+
+<article>
+  <h2 class="font-semibold text-xl mb-1 leading-relaxed">
+    <span>{item.data.title}</span>
+    <span>·</span>
+    <a href={item.data.url} target="_blank" class="text-neutral-800 font-medium">{item.data.company}</a>
+    <time class="text-sm font-normal text-neutral-600 ml-1">
+      {parseDate(item.data.startDate, lang)} — {parseDate(item.data.endDate, lang)}
+    </time>
+  </h2>
+
+  <Prose>
+    <Content />
+  </Prose>
+</article>
