@@ -7,5 +7,6 @@ contact:
   - "mailto:marianoibarratesta@outlook.com"
   - "tel:+54 341 550 8609"
   - "https://marianoibarra.com"
+  - "https://linkedin.com/in/marianoibarra"
   - "https://github.com/marianoibarra"
 ---
